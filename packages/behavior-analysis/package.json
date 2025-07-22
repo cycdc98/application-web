@@ -1,0 +1,13 @@
+{
+  "name": "behavior-analysis",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "vite": "^7.0.5"
+  },
+  "scripts": {
+    "build": "vite build"
+  }
+}

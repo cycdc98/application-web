@@ -1,0 +1,11 @@
+{
+  "name": "application-web",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/behavior-analysis"
+  ],
+  "scripts": {
+    "build:behavior-analysis": "npm run build --workspace=packages/behavior-analysis"
+  }
+}

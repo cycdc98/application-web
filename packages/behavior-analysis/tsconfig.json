@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2020", "dom"],
+    "types": ["node"],
+    "esModuleInterop": true
+  }
+}
