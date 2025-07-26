@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "packages/behavior-analysis"
+    "packages/behavior-analysis",
+    "packages/vue2x-demo"
   ],
   "scripts": {
-    "build:behavior-analysis": "npm run build --workspace=packages/behavior-analysis"
+    "build:behavior-analysis": "npm run build --workspace=packages/behavior-analysis",
+    "dev:vue2x-demo": "npm run dev --workspace=packages/vue2x-demo"
   }
 }
