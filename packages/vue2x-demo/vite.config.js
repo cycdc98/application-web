@@ -5,10 +5,12 @@ import PageHtml from "vite-plugin-page-html";
 import devtoolsJson from 'vite-plugin-devtools-json';
 import Components from 'unplugin-vue-components/vite'
 import { ElementUiResolver } from 'unplugin-vue-components/resolvers'
+import { viteMockServe } from 'vite-plugin-mock'
 
 const pkg = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
 
-export default () => {
+export default ({ command }) => {
+  console.log(command);
   return defineConfig({
     plugins: [
       devtoolsJson(),
@@ -19,6 +21,11 @@ export default () => {
       Components({
         resolvers: [ElementUiResolver()],
       }),
+      viteMockServe({
+        mockPath: 'mock',
+        localEnabled: command === 'serve',
+        prodEnabled: false
+      })
     ],
   });
 };
