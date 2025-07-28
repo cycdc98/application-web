@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "build:behavior-analysis": "npm run build --workspace=packages/behavior-analysis",
-    "build:watch:behavior-analysis": "npm run build:watch --workspace=packages/behavior-analysis",
     "dev:vue2x-demo": "npm run dev --workspace=packages/vue2x-demo",
-    "build:vue2x-demo": "npm run build --workspace=packages/vue2x-demo"
+    "build:vue2x-demo": "npm run build --workspace=packages/vue2x-demo",
+    "preview:vue2x-demo": "npm run preview --workspace=packages/vue2x-demo"
   }
 }

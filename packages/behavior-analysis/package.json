@@ -2,8 +2,8 @@
   "name": "behavior-analysis",
   "version": "1.0.0",
   "type": "module",
-  "main": "./dist/behavior-analysis.umd.js",
-  "module": "./dist/behavior-analysis.umd.js",
+  "main": "./dist/behavior-analysis.cjs.js",
+  "module": "./dist/behavior-analysis.es.js",
   "types": "./dist/types/index.d.ts",
   "devDependencies": {
     "@types/node": "^24.1.0",
@@ -14,11 +14,8 @@
   },
   "scripts": {
     "build": "npm-run-all -p build:vite build:tsc",
-    "build:watch": "npm-run-all -p build:vite:watch build:tsc:watch",
     "build:vite": "vite build",
-    "build:vite:watch": "vite build --watch",
-    "build:tsc": "tsc",
-    "build:tsc:watch": "tsc --watch"
+    "build:tsc": "tsc"
   },
   "dependencies": {
     "platform": "^1.3.6"

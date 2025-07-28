@@ -1,5 +1,5 @@
 import { originalXMLHttpRequest } from "../native";
-import { reportApiResponseTime } from "../tasks";
+import { reportApiResponseTime, reportApiRequestErr } from "../tasks";
 
 const requestMap = new WeakMap<
   XMLHttpRequestInterceptor,
@@ -38,6 +38,13 @@ class XMLHttpRequestInterceptor extends originalXMLHttpRequest {
         endTime: data!.endTime,
       });
     });
+
+    this.addEventListener("error", () => {
+      reportApiRequestErr({
+        input: url,
+        err: this.statusText,
+      });
+    })
 
     super.open(method, url, async ?? true, username, password);
   }

@@ -18,3 +18,19 @@ export const reportApiResponseTime = ({
     },
   });
 };
+
+export const reportApiRequestErr = ({
+  input,
+  err,
+}: {
+  input: RequestInfo | URL;
+  err: unknown;
+}) => {
+  report({
+    reportType: ReportType.API_REQUEST_ERR,
+    eventInfo: {
+      apiName: input.toString(),
+      errMsg: typeof err === "string" ? err : JSON.stringify(err),
+    },
+  });
+};

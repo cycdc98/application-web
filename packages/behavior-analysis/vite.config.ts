@@ -8,7 +8,7 @@ export default () => {
         entry: path.resolve(__dirname, "src/index.ts"),
         name: "BehaviorAnalysis",
         fileName: (format) => `behavior-analysis.${format}.js`,
-        formats: ["umd"],
+        formats: ["umd", "cjs", "es"],
       },
     },
   });
