@@ -12,7 +12,9 @@ export const reportApiResponseTime = ({
 }) => {
   report({
     reportType: ReportType.API_RESPONSE_TIME,
-    apiName: input.toString(),
-    responseTime: endTime - startTime,
+    eventInfo: {
+      apiName: input.toString(),
+      responseTime: endTime - startTime,
+    },
   });
 };
