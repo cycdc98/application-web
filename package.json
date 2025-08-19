@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build:behavior-analysis": "npm run build --workspace=packages/behavior-analysis",
-    "dev:vue3x-demo": "npm run dev --workspace=packages/vue3x-demo",
-    "build:vue3x-demo": "npm run build --workspace=packages/vue3x-demo",
-    "preview:vue3x-demo": "npm run preview --workspace=packages/vue3x-demo",
-    "dev:vue2x-demo": "npm run dev --workspace=packages/vue2x-demo",
-    "dev:react17x-demo": "npm run dev --workspace=packages/react17x-demo",
-    "build:vue2x-demo": "npm run build --workspace=packages/vue2x-demo",
-    "preview:vue2x-demo": "npm run preview --workspace=packages/vue2x-demo"
+    "build:behavior-analysis": "pnpm --filter behavior-analysis build",
+    "dev:vue3x-demo": "pnpm --filter vue3x-demo dev",
+    "build:vue3x-demo": "pnpm --filter vue3x-demo build",
+    "preview:vue3x-demo": "pnpm --filter vue3x-demo preview",
+    "dev:vue2x-demo": "pnpm --filter vue2x-demo dev",
+    "build:vue2x-demo": "pnpm --filter vue2x-demo build",
+    "preview:vue2x-demo": "pnpm --filter vue2x-demo preview",
+    "dev:react17x-demo": "pnpm --filter react17x-demo dev"
   },
   "volta": {
     "node": "22.18.0",

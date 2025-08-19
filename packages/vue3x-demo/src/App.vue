@@ -23,6 +23,7 @@
 </template>
 
 <script setup>
+import * as tf from '@tensorflow/tfjs';
 import * as faceapi from '@vladmandic/face-api';
 import { onMounted } from 'vue';
 
@@ -42,6 +43,9 @@ class FaceAttendance {
   // 初始化：加载人脸识别模型
   async initModels() {
     try {
+      // 让 tfjs 自动选择最佳可用 backend（顺序：webgl → wasm → cpu）
+      await tf.ready()
+      console.log(tf.getBackend());
       this.setStatus('正在加载人脸识别模型...', 'info');
       // 加载模型 (face-api.js 提供的预训练模型)
       await faceapi.nets.tinyFaceDetector.loadFromUri('/model'); // 需下载模型文件到本地或使用CDN
@@ -92,7 +96,6 @@ class FaceAttendance {
         this.video,
         new faceapi.TinyFaceDetectorOptions()
       );
-
       // 清除画布
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -126,44 +129,6 @@ class FaceAttendance {
       const image = this.captureImageFromVideo();
 
       document.getElementById('pic').src = image.toDataURL();
-
-      // 2. 在前端进行人脸检测和特征提取 (face-api.js)
-      // const detections = await faceapi.detectSingleFace(image).withFaceLandmarks().withFaceDescriptor();
-
-      // if (!detections) {
-      //   this.setStatus('未检测到人脸，请正对镜头并确保光线充足。', 'error');
-      //   document.getElementById('capture').disabled = false;
-      //   return;
-      // }
-
-      // 3. 获取当前人脸特征向量
-      // const currentDescriptor = detections.descriptor;  
-
-      // === 关键：人脸识别比对 ===
-      // 方案A (纯前端比对 - 简单但风险高)：
-      // 计算与已知特征向量的欧氏距离
-      // const distance = faceapi.euclideanDistance(currentDescriptor, this.knownFaceDescriptor);
-      // const isMatch = distance < 0.6; // 阈值需根据测试调整
-
-      // 方案B (推荐 - 上传后端验证)：
-      // const formData = new FormData();
-      // formData.append('image', this.dataURLtoFile(image.toDataURL('image/jpeg'), 'capture.jpg'));
-      // formData.append('userId', this.userId);
-
-      // const response = await fetch('/api/attendance/verify-face', {
-      //   method: 'POST',
-      //   body: formData
-      //   // 注意：使用 FormData 时，不要设置 Content-Type，浏览器会自动设置 boundary
-      // });
-
-      // const result = await response.json();
-
-      // if (result.success) {
-      //   // 4. 调用后端打卡接口 (需结合定位等其他信息)
-      //   await this.submitAttendance(result.faceId); // 假设后端返回了验证通过的faceId
-      // } else {
-      //   this.setStatus(`人脸识别失败: ${result.message}`, 'error');
-      // }
 
     } catch (error) {
       this.setStatus(`识别过程出错: ${error.message}`, 'error');
