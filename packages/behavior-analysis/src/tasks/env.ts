@@ -4,7 +4,7 @@ import { ReportType } from "../constants";
 
 export const reportClientInfo = () => {
   report({
-    reportType: ReportType.USER_PLATFORM,
+    reportType: ReportType.USER_ENVIRONMENT,
     eventInfo: {
       osFamily: String(platform.os?.family),
       osVersion: String(platform.os?.version),

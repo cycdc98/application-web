@@ -21,16 +21,16 @@ export const reportApiResponseTime = ({
 
 export const reportApiRequestErr = ({
   input,
-  err,
+  errType,
 }: {
   input: RequestInfo | URL;
-  err: unknown;
+  errType: number | string;
 }) => {
   report({
     reportType: ReportType.API_REQUEST_ERR,
     eventInfo: {
       apiName: input.toString(),
-      errMsg: typeof err === "string" ? err : JSON.stringify(err),
+      errType,
     },
   });
 };

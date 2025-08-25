@@ -1,1 +1,1 @@
-export {  report } from "../utils/report";
+export { report } from "../utils/report";

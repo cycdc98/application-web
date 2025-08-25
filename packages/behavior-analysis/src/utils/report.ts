@@ -5,7 +5,7 @@ import behaviorAnalysisInstance from "../index";
 
 export function report(data: {
   reportType: ReportType;
-  eventInfo: { [key: string]: string | number };
+  eventInfo: { [key: string]: string | number | undefined };
 }) {
   behaviorAnalysisInstance.config.apId &&
     originalFetch(reportURL, {

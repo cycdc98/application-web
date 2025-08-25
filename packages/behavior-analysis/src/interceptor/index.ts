@@ -1,2 +1,3 @@
-import './fetch'
-import './xmlhttprequest'
+import "./fetch";
+import "./history";
+import "./xmlhttprequest";

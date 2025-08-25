@@ -1,5 +1,6 @@
+import { ReportType } from "../constants";
 import { originalXMLHttpRequest } from "../native";
-import { reportApiResponseTime, reportApiRequestErr } from "../tasks";
+import { reportApiRequestErr, reportApiResponseTime } from "../tasks";
 
 const requestMap = new WeakMap<
   XMLHttpRequestInterceptor,
@@ -29,22 +30,28 @@ class XMLHttpRequestInterceptor extends originalXMLHttpRequest {
   ) {
     requestMap.set(this, { method, url, startTime: null, endTime: null });
 
-    this.addEventListener("load", () => {
+    this.addEventListener("load", (ev) => {
       const data = requestMap.get(this);
       data!.endTime = performance.now();
       reportApiResponseTime({
         input: url,
         startTime: data!.startTime!,
-        endTime: data!.endTime,
+        endTime: data!.endTime!,
       });
+      if (this.status >= 400) {
+        reportApiRequestErr({
+          input: url.toString(),
+          errType: this.status,
+        });
+      }
     });
 
-    this.addEventListener("error", () => {
+    this.addEventListener("error", (ev) => {
       reportApiRequestErr({
-        input: url,
-        err: this.statusText,
+        input: url.toString(),
+        errType: ev.type,
       });
-    })
+    });
 
     super.open(method, url, async ?? true, username, password);
   }

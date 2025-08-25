@@ -1,7 +1,6 @@
-import { ReportType } from "./constants";
 import "./interceptor";
+import "./listener";
 import { reportClientInfo } from "./tasks";
-import { report } from "./utils";
 
 interface BehaviorAnalysisConfig {
   apId?: string;
@@ -14,12 +13,6 @@ class BehaviorAnalysis {
   init(config: BehaviorAnalysisConfig) {
     Object.assign(this.config, config);
     reportClientInfo();
-  }
-  track(eventInfo: { [key: string]: string | number }) {
-    report({
-      reportType: ReportType.CUSTOME,
-      eventInfo,
-    });
   }
 }
 

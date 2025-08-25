@@ -1,3 +1,3 @@
 export { ReportType } from "./type";
 
-export const reportURL = "/api/report"
+export const reportURL = "/api/report";
