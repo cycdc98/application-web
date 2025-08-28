@@ -10,7 +10,6 @@ import { viteMockServe } from "vite-plugin-mock";
 const pkg = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
 
 export default ({ command }) => {
-  console.log(command);
   return defineConfig({
     plugins: [
       devtoolsJson(),
@@ -27,5 +26,10 @@ export default ({ command }) => {
         prodEnabled: false,
       }),
     ],
+    resolve: {
+      alias: {
+        "@": "/src",
+      },
+    },
   });
 };

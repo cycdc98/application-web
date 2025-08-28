@@ -3,13 +3,16 @@ import {
   originalHistoryReplaceState,
 } from "../native";
 import { reportPageView } from "../tasks";
-
+import { startOb } from "../listener";
 const historyPushStateInterceptor = (
   data: any,
   unused: string,
   url?: string | URL | null
 ) => {
-  reportPageView({ from: location.toString(), to: url?.toString() });
+  if (url) {
+    reportPageView({ from: location.toString(), to: url.toString() });
+    startOb({ url: url.toString()  })
+  }
   return Reflect.apply(originalHistoryPushState, window.history, [
     data,
     unused,
@@ -22,7 +25,10 @@ const historyReplaceStateInterceptor = (
   unused: string,
   url?: string | URL | null
 ) => {
-  reportPageView({ from: location.toString(), to: url?.toString() });
+  if (url) {
+    reportPageView({ from: location.toString(), to: url.toString() });
+    startOb({ url: url.toString()  })
+  }
   return Reflect.apply(originalHistoryReplaceState, window.history, [
     data,
     unused,

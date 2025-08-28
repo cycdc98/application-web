@@ -30,14 +30,39 @@ export const reportPageView = ({
   from,
   to,
 }: {
-  from?: string;
-  to?: string;
+  from: string;
+  to: string;
 }) => {
   report({
     reportType: ReportType.PAGE_VIEW,
     eventInfo: {
       from,
       to,
+    },
+  });
+};
+
+export const reportPageLoadTime = ({
+  time,
+  url,
+}: {
+  time: number;
+  url: string;
+}) => {
+  report({
+    reportType: ReportType.PAGE_LOAD_TIME,
+    eventInfo: {
+      time,
+      url,
+    },
+  });
+};
+
+export const reportHomeRenderTime = ({ time }: { time: number }) => {
+  report({
+    reportType: ReportType.HOME_RENDER_TIME,
+    eventInfo: {
+      time,
     },
   });
 };
