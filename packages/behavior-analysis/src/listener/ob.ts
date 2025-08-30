@@ -12,6 +12,7 @@ const reportLcp = debounce(() => {
       time: lcpOb.startTime,
       url: lcpOb.url,
     });
+    lcpOb.url = undefined;
   }
 }, 200);
 
