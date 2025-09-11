@@ -1,5 +1,5 @@
 import { ReportType } from "../constants";
-import { report } from "../utils";
+import reporter from "../reporter";
 
 export const reportPageSourceLoadErr = ({
   tagName,
@@ -8,7 +8,7 @@ export const reportPageSourceLoadErr = ({
   tagName: string;
   src: string;
 }) => {
-  report({
+  reporter.report({
     reportType: ReportType.PAGE_SOURCE_LOAD_ERR,
     eventInfo: {
       tagName,
@@ -18,7 +18,7 @@ export const reportPageSourceLoadErr = ({
 };
 
 export const reportPageErr = ({ message }: { message: string }) => {
-  report({
+  reporter.report({
     reportType: ReportType.PAGE_ERR,
     eventInfo: {
       message,
@@ -26,17 +26,10 @@ export const reportPageErr = ({ message }: { message: string }) => {
   });
 };
 
-export const reportPageView = ({
-  from,
-  to,
-}: {
-  from: string;
-  to: string;
-}) => {
-  report({
+export const reportPageView = ({ to }: { to: string }) => {
+  reporter.report({
     reportType: ReportType.PAGE_VIEW,
     eventInfo: {
-      from,
       to,
     },
   });
@@ -49,7 +42,7 @@ export const reportPageLoadTime = ({
   time: number;
   url: string;
 }) => {
-  report({
+  reporter.report({
     reportType: ReportType.PAGE_LOAD_TIME,
     eventInfo: {
       time,
@@ -59,7 +52,7 @@ export const reportPageLoadTime = ({
 };
 
 export const reportHomeRenderTime = ({ time }: { time: number }) => {
-  report({
+  reporter.report({
     reportType: ReportType.HOME_RENDER_TIME,
     eventInfo: {
       time,

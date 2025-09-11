@@ -1,5 +1,6 @@
 import "./error";
 import "./unhandledrejection";
-import "./lcp";
-import "./ob";
-export { startOb } from './ob'
+import "./web-vitals-lcp";
+import "./mutation-lcp";
+export { startMutationOb } from './mutation-lcp'
+import './performance-resource'

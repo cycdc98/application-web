@@ -1,14 +1,11 @@
-import { ReportType } from "../constants";
+import dayjs from "dayjs";
 import { originalXMLHttpRequest } from "../native";
-import { reportApiRequestErr, reportApiResponseTime } from "../tasks";
+import { reportApiRequestErr } from "../tasks";
 
 const requestMap = new WeakMap<
   XMLHttpRequestInterceptor,
   {
-    url: string | URL;
-    method: string;
-    startTime: number | null;
-    endTime: number | null;
+    startTime: string | null;
   }
 >();
 
@@ -28,26 +25,12 @@ class XMLHttpRequestInterceptor extends originalXMLHttpRequest {
     username?: string | null,
     password?: string | null
   ) {
-    requestMap.set(this, { method, url, startTime: null, endTime: null });
-
-    this.addEventListener("load", (ev) => {
-      const data = requestMap.get(this);
-      data!.endTime = performance.now();
-      reportApiResponseTime({
-        input: url,
-        startTime: data!.startTime!,
-        endTime: data!.endTime!,
-      });
-      if (this.status >= 400) {
-        reportApiRequestErr({
-          input: url.toString(),
-          errType: this.status,
-        });
-      }
-    });
+    requestMap.set(this, { startTime: null });
 
     this.addEventListener("error", (ev) => {
+      const data = requestMap.get(this);
       reportApiRequestErr({
+        createTime: data!.startTime!,
         input: url.toString(),
         errType: ev.type,
       });
@@ -59,7 +42,7 @@ class XMLHttpRequestInterceptor extends originalXMLHttpRequest {
   send(body?: Document | XMLHttpRequestBodyInit | null): void;
   send(body?: Document | XMLHttpRequestBodyInit | null) {
     const data = requestMap.get(this);
-    data!.startTime = performance.now();
+    data!.startTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
 
     super.send(body);
   }

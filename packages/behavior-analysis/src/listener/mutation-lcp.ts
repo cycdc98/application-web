@@ -6,10 +6,10 @@ const lcpOb: { url?: string; startTime: number } = {
   startTime: 0,
 };
 
-const reportLcp = debounce(() => {
+const reportLcp = debounce((endTime: number) => {
   if (lcpOb.url) {
     reportPageLoadTime({
-      time: lcpOb.startTime,
+      time: endTime - lcpOb.startTime,
       url: lcpOb.url,
     });
     lcpOb.url = undefined;
@@ -17,14 +17,14 @@ const reportLcp = debounce(() => {
 }, 200);
 
 const lcpObserver = new MutationObserver(() => {
-  reportLcp();
+  reportLcp(performance.now());
 });
 
 window.addEventListener("load", () => {
   lcpObserver.observe(window.document.body, { subtree: true, childList: true });
 });
 
-export const startOb = ({ url }: { url: string }) => {
+export const startMutationOb = ({ url }: { url: string }) => {
   lcpOb.url = url;
   lcpOb.startTime = performance.now();
 };

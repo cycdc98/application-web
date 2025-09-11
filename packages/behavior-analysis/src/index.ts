@@ -1,18 +1,31 @@
 import "./interceptor";
 import "./listener";
-import { reportClientInfo } from "./tasks";
+import {
+  type ProjectInfo,
+  projectInfoStore,
+  type ProjectConfig,
+  projectConfigStore,
+} from "./store";
 
 interface BehaviorAnalysisConfig {
-  apId?: string;
+  /**
+   * 项目信息
+   */
+  info?: ProjectInfo;
+  config?: ProjectConfig;
 }
+
 class BehaviorAnalysis {
-  config: BehaviorAnalysisConfig;
-  constructor() {
-    this.config = {};
+  config(configInfo: BehaviorAnalysisConfig) {
+    Object.assign(projectInfoStore, configInfo.info);
+    Object.assign(projectConfigStore, configInfo.config);
   }
-  init(config: BehaviorAnalysisConfig) {
-    Object.assign(this.config, config);
-    reportClientInfo();
+
+  get configurationStatus() {
+    return (
+      typeof projectInfoStore.apId !== "undefined" &&
+      typeof projectInfoStore.userId !== "undefined"
+    );
   }
 }
 

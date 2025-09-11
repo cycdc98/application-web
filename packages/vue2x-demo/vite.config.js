@@ -11,6 +11,10 @@ const pkg = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
 
 export default ({ command }) => {
   return defineConfig({
+    server: {
+      port: 8080,
+      strictPort: false
+    },
     plugins: [
       devtoolsJson(),
       PageHtml({

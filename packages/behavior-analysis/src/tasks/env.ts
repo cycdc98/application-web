@@ -1,9 +1,9 @@
 import platform from "platform";
-import { report } from "../utils";
+import reporter from "../reporter";
 import { ReportType } from "../constants";
 
-export const reportClientInfo = () => {
-  report({
+const reportClientInfo = () => {
+  reporter.report({
     reportType: ReportType.USER_ENVIRONMENT,
     eventInfo: {
       osFamily: String(platform.os?.family),
@@ -11,8 +11,8 @@ export const reportClientInfo = () => {
       osArchitecture: String(platform.os?.architecture),
       browserName: String(platform.name),
       browserVersion: String(platform.version),
-      screenWidth: window.screen.width,
-      screenHeight: window.screen.height,
     },
   });
 };
+
+reportClientInfo();

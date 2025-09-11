@@ -3,15 +3,15 @@ import {
   originalHistoryReplaceState,
 } from "../native";
 import { reportPageView } from "../tasks";
-import { startOb } from "../listener";
+import { startMutationOb } from "../listener";
 const historyPushStateInterceptor = (
   data: any,
   unused: string,
   url?: string | URL | null
 ) => {
   if (url) {
-    reportPageView({ from: location.toString(), to: url.toString() });
-    startOb({ url: url.toString()  })
+    reportPageView({ to: url.toString() });
+    startMutationOb({ url: url.toString()  })
   }
   return Reflect.apply(originalHistoryPushState, window.history, [
     data,
@@ -26,8 +26,8 @@ const historyReplaceStateInterceptor = (
   url?: string | URL | null
 ) => {
   if (url) {
-    reportPageView({ from: location.toString(), to: url.toString() });
-    startOb({ url: url.toString()  })
+    reportPageView({ to: url.toString() });
+    startMutationOb({ url: url.toString()  })
   }
   return Reflect.apply(originalHistoryReplaceState, window.history, [
     data,

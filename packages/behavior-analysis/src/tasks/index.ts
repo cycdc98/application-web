@@ -1,3 +1,3 @@
-export { reportApiResponseTime, reportApiRequestErr } from "./api";
-export { reportClientInfo } from "./env";
-export { reportPageErr, reportPageSourceLoadErr, reportPageView, reportPageLoadTime } from "./page";
+export * from "./api";
+import "./env";
+export * from "./page";
